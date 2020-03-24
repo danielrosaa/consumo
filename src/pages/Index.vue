@@ -1,8 +1,9 @@
 <template>
   <q-page class="flex row wrap items-start">
 
-      <q-select
+      <!-- <q-select
         filled
+        dense
         v-model="model"
         label="Eletrodomésticos"
         use-input
@@ -22,10 +23,10 @@
             </q-item-section>
           </q-item>
         </template>
-      </q-select>
+      </q-select> -->
     <div class="row wrap justify-center q-gutter-lg q-pa-lg">
-      <div v-for="item in model" :key="item.nome">
-        <aparelho v-if='model.lenght !== 0' :item="item" />
+      <div v-for="item in escolhidos" :key="item.nome">
+        <aparelho v-if='escolhidos.lenght !== 0' :item="item" />
       </div>
     </div>
   </q-page>
@@ -38,9 +39,9 @@ export default {
   name: 'PageIndex',
   components: { Aparelho },
   computed: {
-    aparelhos: {
+    escolhidos: {
       get() {
-        return this.$store.state.aparelhos.aparelhos;
+        return this.$store.state.aparelhos.escolhidos;
       },
     },
   },
