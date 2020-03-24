@@ -1,32 +1,8 @@
 <template>
   <q-page class="flex row wrap items-start">
-
-      <!-- <q-select
-        filled
-        dense
-        v-model="model"
-        label="Eletrodomésticos"
-        use-input
-        hide-selected
-        multiple
-        fill-input
-        input-debounce="0"
-        :options="options"
-        option-label="nome"
-        @filter="filterFn"
-        style="width: 100%"
-      >
-        <template v-slot:no-option>
-          <q-item>
-            <q-item-section class="text-grey">
-              Sem resultados
-            </q-item-section>
-          </q-item>
-        </template>
-      </q-select> -->
     <div class="row wrap justify-center q-gutter-lg q-pa-lg">
-      <div v-for="item in escolhidos" :key="item.nome">
-        <aparelho v-if='escolhidos.lenght !== 0' :item="item" />
+      <div v-for="(item, index) in escolhidos" :key="item.nome">
+        <aparelho v-if='escolhidos.lenght !== 0' :item="item" :index="index" />
       </div>
     </div>
   </q-page>

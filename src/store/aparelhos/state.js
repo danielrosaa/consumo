@@ -363,5 +363,7 @@ export default function () {
       },
     ],
     escolhidos: [],
+    valorKWH: 0.75,
+    consumoTotal: 0,
   };
 }

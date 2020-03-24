@@ -17,5 +17,17 @@ export function atualizaListaAparelhos(state, payload) {
 }
 
 export function atualizaEscolhidos(state, payload) {
-  state.escolhidos = [...payload];
+  if (typeof payload !== 'number') {
+    state.escolhidos = [...payload];
+  } else {
+    state.escolhidos.splice(payload, 1);
+  }
+}
+
+export function atualizaValorKWH(state, payload) {
+  state.valorKWH = payload;
+}
+
+export function atualizaConsumoTotal(state, payload) {
+  state.consumoTotal = payload > 0 ? payload : payload * -1;
 }
