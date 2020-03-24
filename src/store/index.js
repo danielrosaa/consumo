@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import aparelhos from './module-aparelhos';
+import aparelhos from './aparelhos';
 
 Vue.use(Vuex);
 
