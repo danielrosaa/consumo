@@ -4,8 +4,9 @@
           <q-toolbar-title class="text-center"><strong>Consumo de energia</strong></q-toolbar-title>
         </q-toolbar>
         <q-toolbar inset class="justify-center q-pa-none">
-          <q-btn class="valor-kwh" size="sm" color="info" @click="abreValorKWH = !abreValorKWH">Valor do kWh: R$ {{valorKWH.toFixed(2)}}</q-btn>
-          <div v-if="consumoTotal.valor" class="consumo-total">Total: {{ consumoTotal.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}</div>
+          <!-- Alterar o valor do kWh quebra o consumo total. VERIFICAR -->
+          <q-btn class="valor-kwh" size="sm" color="info" @click="abreValorKWH = !abreValorKWH" disable>Valor do kWh: {{ formataMoeda(valorKWH) }}</q-btn>
+          <div v-if="consumoTotal.valor" class="consumo-total">Total: {{ formataMoeda(consumoTotal.valor) }}</div>
           <q-dialog v-model="abreValorKWH" persistent>
             <q-card style="min-width: 350px">
               <q-card-section>
@@ -92,6 +93,9 @@ export default {
     };
   },
   methods: {
+    formataMoeda(valor) {
+      return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    },
     ordenaAparelhos() {
       this.$store.dispatch('aparelhos/atualizaListaAparelhos', this.aparelhos);
     },
