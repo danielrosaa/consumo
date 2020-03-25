@@ -42,9 +42,6 @@ export default {
       get() {
         return this.$store.state.aparelhos.consumoTotal;
       },
-      set() {
-        this.$store.dispatch('aparelhos/atualizaConsumoTotal', { valor: this.calculaConsumo });
-      },
     },
   },
   data() {
