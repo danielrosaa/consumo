@@ -29,5 +29,5 @@ export function atualizaValorKWH(state, payload) {
 }
 
 export function atualizaConsumoTotal(state, payload) {
-  state.consumoTotal = payload > 0 ? payload : payload * -1;
+  state.consumoTotal = payload.valor > 0 ? payload : { valor: payload.valor * -1, menos: payload.menos };
 }

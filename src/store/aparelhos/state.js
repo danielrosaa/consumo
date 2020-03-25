@@ -1,5 +1,8 @@
 export default function () {
   return {
+    escolhidos: [],
+    valorKWH: 0.75,
+    consumoTotal: { valor: 0 },
     aparelhos: [
       {
         nome: 'Geladeira 1 porta',
@@ -362,8 +365,5 @@ export default function () {
         potencia: '10',
       },
     ],
-    escolhidos: [],
-    valorKWH: 0.75,
-    consumoTotal: 0,
   };
 }

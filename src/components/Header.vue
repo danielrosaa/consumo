@@ -5,7 +5,7 @@
         </q-toolbar>
         <q-toolbar inset class="justify-center q-pa-none">
           <q-btn class="valor-kwh" size="sm" color="info" @click="abreValorKWH = !abreValorKWH">Valor do kWh: R$ {{valorKWH.toFixed(2)}}</q-btn>
-          <!-- <div v-if="consumoTotal" class="consumo-total">Total: R${{consumoTotal.toFixed(2)}}</div> -->
+          <div v-if="consumoTotal.valor" class="consumo-total">Total: {{ consumoTotal.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}</div>
           <q-dialog v-model="abreValorKWH" persistent>
             <q-card style="min-width: 350px">
               <q-card-section>
@@ -104,10 +104,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// .header {
-//   height: 120px;
-//   text-align: center;
-// }
 .add-aparelho {
   float: right;
   position: relative;

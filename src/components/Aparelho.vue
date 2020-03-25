@@ -9,6 +9,7 @@
               <!-- Valor da potência sendo alterada fora da mutation. VERIFICAR -->
             </div>
             <div class="infos">
+              {{ menos }}
               Quantidade: {{ quantidade }} <br>
               Tempo diário de uso: 6h <br>
               Dias no mês: 30 <br>
@@ -17,8 +18,8 @@
           </div>
         </div>
         <q-card-actions align="center" >
-          <q-btn round color="primary" icon="add" size="sm" @click="quantidade++, atualizaConsumo()" />
-          <q-btn round color="accent" icon="remove" size="sm" @click="quantidade--, atualizaConsumo()" />
+          <q-btn round color="primary" icon="add" size="sm" @click="quantidade++, menos = false, calculaConsumo()" />
+          <q-btn :disable="quantidade <= 0" round color="accent" icon="remove" size="sm" @click="quantidade--, menos = true, calculaConsumo()" />
           <q-btn flat round color="dark" icon="close" size="sm" @click="removeAparelho" />
         </q-card-actions>
     </q-card>
@@ -41,8 +42,8 @@ export default {
       get() {
         return this.$store.state.aparelhos.consumoTotal;
       },
-      SET() {
-        this.$store.dispatch('aparelhos/atualizaConsumoTotal', this.consumo);
+      set() {
+        this.$store.dispatch('aparelhos/atualizaConsumoTotal', { valor: this.calculaConsumo });
       },
     },
   },
@@ -52,27 +53,30 @@ export default {
       consumo: 0,
       horas: 6,
       dias: 30,
+      menos: false,
     };
   },
   methods: {
-    calculaConsumo() {
-      this.consumo = ((((this.item.potencia * this.horas) / 1000) * this.dias) * this.valorKWH) * this.quantidade;
+    calculo() {
+      return ((((this.item.potencia * this.horas) / 1000) * this.dias) * this.valorKWH);
     },
-    atualizaConsumo() {
-      this.calculaConsumo();
-      // this.$store.dispatch('aparelhos/atualizaConsumoTotal', menos ? this.consumo * -1 : this.consumo);
+    calculaConsumo() {
+      this.consumo = this.calculo() * this.quantidade;
+      const novoValor = this.calculo() * 1;
+      if (!this.menos) {
+        this.$store.dispatch('aparelhos/atualizaConsumoTotal', { valor: this.consumoTotal.valor + novoValor });
+      } else {
+        this.$store.dispatch('aparelhos/atualizaConsumoTotal', { valor: this.consumoTotal.valor - novoValor });
+      }
     },
     removeAparelho() {
       this.$store.dispatch('aparelhos/atualizaEscolhidos', this.index);
-      this.$store.dispatch('aparelhos/atualizaConsumoTotal', 0);
+      this.$store.dispatch('aparelhos/atualizaConsumoTotal', { valor: this.consumoTotal.valor - this.consumo });
     },
   },
   watch: {
     valorKWH() {
       this.calculaConsumo();
-    },
-    consumo() {
-      this.$store.dispatch('aparelhos/atualizaConsumoTotal', this.consumo);
     },
   },
 };
